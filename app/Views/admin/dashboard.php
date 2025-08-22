@@ -1,3 +1,3 @@
-<<?php
+<?php
 
-  echo 'Coucou du dashboard !';
+echo 'Coucou du dashboard !';

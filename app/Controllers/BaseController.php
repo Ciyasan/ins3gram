@@ -76,6 +76,8 @@ abstract class BaseController extends Controller
      */
     protected $breadcrumb = [];
 
+    protected $menu = 'accueil';
+
     /**
      * @return void
      */
@@ -101,9 +103,10 @@ abstract class BaseController extends Controller
         }
         $headData = [
             'title' => sprintf('%s : %s', $this->title, $this->title_prefix),
-            'menu' => $this->loadMenu($admin),
+            'menus' => $this->loadMenu($admin),
             'template_path' => $template_path,
             'breadcrumb' => $this->breadcrumb,
+            'localmenu' => $this->menu,
         ];
         return
             view($template_path . "head", $headData)
