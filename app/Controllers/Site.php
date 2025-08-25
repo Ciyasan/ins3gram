@@ -11,4 +11,9 @@ class Site extends BaseController
     {
         return $this->view('templates/forbidden', [], false);
     }
+
+    public function show404()
+    {
+        return $this->view('templates/404', [], false);
+    }
 }
