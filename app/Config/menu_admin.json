@@ -5,6 +5,20 @@
     "icon": "<i class=\"nav-icon fa-solid fa-house\"></i>",
     "class": "main-menu-accueil"
   },
+
+  "brand": {
+    "title": "Marques",
+    "url": "/admin/brand",
+    "icon": "<i class=\"nav-icon fas fa-tag\"></i>",
+    "class": "main-menu-brand"
+  },
+
+  "recipe": {
+    "title": "Recettes",
+    "url": "/admin/recipe",
+    "icon": "<i class=\"nav-icon fas fa-cocktail\"></i>",
+    "class": "main-menu-recipe"
+  },
   "administration": {
     "title": "Administration",
     "url": "/",
