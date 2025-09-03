@@ -3,16 +3,19 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
+use App\Traits\DataTableTrait;
 
 class RecipeModel extends Model
 {
+
+    use DataTableTrait;
     protected $table            = 'recipe';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['name', 'alcool', 'id_user'];
+    protected $allowedFields    = ['name', 'description', 'alcool', 'id_user'];
 
     // Dates
     protected $useTimestamps = true;
@@ -25,6 +28,7 @@ class RecipeModel extends Model
         'name'    => 'required|max_length[255]|is_unique[recipe.name,id,{id}]',
         'alcool'  => 'permit_empty|in_list[0,1]',
         'id_user' => 'permit_empty|integer',
+        'description' => 'permit_empty',
     ];
 
     protected $validationMessages = [
@@ -40,4 +44,25 @@ class RecipeModel extends Model
             'integer' => 'L’ID de l’utilisateur doit être un nombre.',
         ],
     ];
+
+    protected function getDataTableConfig(): array
+    {
+        return [
+            'searchable_fields' => [
+                'name',
+                'description',
+                'alcool',
+                'user.name'
+            ],
+            'joins' => [
+                [
+                    'table' => 'user',
+                    'condition' => 'user.id = recipe.user_id',
+                    'type' => 'left'
+                ]
+            ],
+            'select' => 'recipe.*, user.name as creator_name',
+            'with_deleted' => true
+        ];
+    }
 }
