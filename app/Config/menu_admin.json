@@ -8,7 +8,13 @@
   "recipe": {
     "title": "Recettes",
     "url": "/admin/recipe",
-    "icon": "<i class=\"nav-icon fas fa-martini-glass-citrus\"></i>",
+    "icon": "<i class=\"nav-icon fas fa-cocktail\"></i>",
+    "class": ""
+},
+  "brand": {
+    "title": "Marques",
+    "url": "/admin/brand",
+    "icon": "<i class=\"nav-icon fas fa-tag\"></i>",
     "class": ""
   },
   "administration": {
