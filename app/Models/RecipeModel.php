@@ -16,6 +16,8 @@ class RecipeModel extends Model
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = ['name', 'description', 'alcool', 'id_user'];
+    protected $beforeInsert = ['setInsertValidationRule', 'validateAlcool'];
+    protected $beforeUpdate = ['setUpdateValidationRule', 'validateAlcool'];
 
     // Dates
     protected $useTimestamps = true;
@@ -24,12 +26,29 @@ class RecipeModel extends Model
     protected $updatedField  = 'updated_at';
     protected $deletedField  = 'deleted_at';
 
-    protected $validationRules = [
-        'name'    => 'required|max_length[255]|is_unique[recipe.name,id,{id}]',
-        'alcool'  => 'permit_empty|in_list[0,1]',
-        'id_user' => 'permit_empty|integer',
-        'description' => 'permit_empty',
-    ];
+    protected function setInsertValidationRule(array $data)
+    {
+        $this->validationRules = [
+            'name'    => 'required|max_length[255]|is_unique[recipe.name]',
+            'alcool'  => 'permit_empty|in_list[0,1,on]',
+            'id_user' => 'permit_empty|integer',
+            'description' => 'permit_empty',
+        ];
+        return $data;
+    }
+
+    protected function setUpdateValidationRule(array $data)
+    {
+        $id = $data['data']['id_recipe'] ?? null;
+        $this->validationRules = [
+            'name'    => 'required|max_length[255]|is_unique[recipe.name,id,$id]',
+            'alcool'  => 'permit_empty|in_list[0,1,on]',
+            'id_user' => 'permit_empty|integer',
+            'description' => 'permit_empty',
+        ];
+        return $data;
+    }
+
 
     protected $validationMessages = [
         'name' => [
@@ -44,6 +63,23 @@ class RecipeModel extends Model
             'integer' => 'L’ID de l’utilisateur doit être un nombre.',
         ],
     ];
+
+
+    protected function validateAlcool(array $data)
+    {
+        $data['data']['alcool'] = isset($data['data']['alcool']) ? 1 : 0;
+        return $data;
+    }
+
+    /**
+     * Réactive un utilisateur soft deleted
+     */
+    public function reactive(int $id): bool
+    {
+        return $this->builder()
+            ->where('id', $id)
+            ->update(['deleted_at' => null, 'updated_at' => date('Y-m-d H:i:s')]);
+    }
 
     protected function getDataTableConfig(): array
     {

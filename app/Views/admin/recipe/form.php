@@ -1,9 +1,16 @@
+<?php
+if (!isset($recipe)) :
+  echo form_open('/admin/recipe/insert');
+else:
+  echo form_open('/admin/recipe/update');
+endif;
+?>
 <div class="row mb-3">
   <div class="col">
     <div class="card">
       <div class="card-body d-flex align-items-center justify-content-between">
         <div class="flex-fill me-3">
-          <input type="text" class="form-control" id="name" placeholder="Nom de la recette" name="name" value="<?= isset($recipe) ? $recipe['name'] : '' ?>">
+          <input type="text" class="form-control" id="name" placeholder="Nom de la recette" name="name" value="<?= isset($recipe) ? $recipe['name'] : '' ?>" required>
         </div>
         <div class="form-check form-switch">
           <input class="form-check-input" type="checkbox" role="switch" id="switchActive" name="active">
@@ -21,23 +28,23 @@
         <!--START: TABS-LINKS -->
         <ul class="nav nav-tabs" id="tabsRecipe">
           <li class="nav-item">
-            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#general-tab-pane">Général</button>
+            <a href="#" class="nav-link active" data-bs-toggle="tab" data-bs-target="#general-tab-pane">Général</a>
           </li>
           <li class="nav-item">
-            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#ingredient-tab-pane">Ingrédients</button>
+            <a href="#" class="nav-link" data-bs-toggle="tab" data-bs-target="#ingredient-tab-pane">Ingrédients</a>
           </li>
           <li class="nav-item">
-            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#keyword-tab-pane">Mots Clés</button>
+            <a href="#" class="nav-link" data-bs-toggle="tab" data-bs-target="#keyword-tab-pane">Mots Clés</a>
           </li>
           <li class="nav-item">
-            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#step-tab-pane">Étapes</button>
+            <a href="#" class="nav-link" data-bs-toggle="tab" data-bs-target="#step-tab-pane">Étapes</a>
           </li>
           <?php if (isset($recipe)) : ?>
             <li class="nav-item">
-              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#comment-tab-pane">Commentaires</button>
+              <a href="#" class="nav-link" data-bs-toggle="tab" data-bs-target="#comment-tab-pane">Commentaires</a>
             </li>
             <li class="nav-item">
-              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#fav-tab-pane">Favoris</button>
+              <a href="#" class="nav-link" data-bs-toggle="tab" data-bs-target="#fav-tab-pane">Favoris</a>
             </li>
           <?php endif; ?>
         </ul>
@@ -52,7 +59,7 @@
             </div>
             <div>
               <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="switchAlcool" name="alcool">
+                <input class="form-check-input" type="checkbox" role="switch" id="switchAlcool" name="alcool" checked>
                 <label class="form-check-label" for="switchAlcool">Avec Alcool</label>
               </div>
             </div>
@@ -108,11 +115,22 @@
             </div>
           </div>
         <?php endif; ?>
+        <div>
+          <label for="id_user" class="form-label">Créateur</label>
+          <select class="form-select" id="id_user" name="id_user">
+            <?php foreach ($users as $u) : ?>
+              <option value="<?= $u->id ?>">
+                <?= $u->username ?>
+              </option>
+            <?php endforeach; ?>
+          </select>
+        </div>
       </div>
     </div>
   </div>
   <!--END: COLONNE ACTIONS -->
 </div>
+<?php echo form_close(); ?>
 <script>
   $(document).ready(function() {
     tinymce.init({
