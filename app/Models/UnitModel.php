@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
+use App\Traits\Select2Searchable;
 
 class UnitModel extends Model
 {
+    use Select2Searchable;
     protected $table            = 'unit';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
@@ -24,4 +26,7 @@ class UnitModel extends Model
             'is_unique'  => 'Cette unité existe déjà.',
         ],
     ];
+
+    protected $select2SearchableFields = ['name'];
+    protected $select2DisplayField = 'name';
 }
