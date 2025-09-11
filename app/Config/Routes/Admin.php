@@ -11,6 +11,7 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'au
     $routes->post('update', 'User::update');
     $routes->post('insert', 'User::insert');
     $routes->post('switch-active', 'User::switchActive');
+    $routes->get('search', 'User::search'); // Route pour la recherche AJAX
   });
 
   $routes->group('user-permission', function ($routes) {
@@ -25,7 +26,7 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'au
     $routes->get('(:num)', 'Recipe::edit/$1');
     $routes->get('new', 'Recipe::create');
     $routes->post('insert', 'Recipe::insert');
-    $routes->post('switch-active', 'Recipe::switchActive');
+    $routes->post('update', 'Recipe::update');
   });
 
   $routes->group('brand', function ($routes) {
@@ -40,5 +41,28 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'au
     $routes->post('update', 'CategIng::update');
     $routes->post('insert', 'CategIng::insert');
     $routes->post('delete', 'CategIng::delete');
+  });
+
+  $routes->group('ingredient', function ($routes) {
+    $routes->get('search', 'Ingredient::search'); // Route pour la recherche AJAX
+  });
+
+  $routes->group('unit', function ($routes) {
+    $routes->get('search', 'Unit::search'); // Route pour la recherche AJAX
+  });
+  $routes->group('unit', function ($routes) {
+    $routes->get('search', 'Unit::search');
+  });
+
+  $routes->group('category-ingredient', function ($routes) {
+    $routes->post('insert', 'CategIng::insert');
+    $routes->post('delete', 'CategIng::delete');
+  });
+
+  $routes->group('tag', function ($routes) {
+    $routes->get('/', 'Tag::index');
+    $routes->post('update', 'Tag::update');
+    $routes->post('insert', 'Tag::insert');
+    $routes->post('delete', 'Tag::delete');
   });
 });

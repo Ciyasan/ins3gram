@@ -11,17 +11,21 @@
     "icon": "<i class=\"nav-icon fas fa-cocktail\"></i>",
     "class": ""
   },
-  "categorie d'ingrédients": {
-    "title": "Catégories d'ingrédients",
-    "url": "/admin/categ-ing",
-    "icon": "<i class=\"nav-icon fas fa-list\"></i>",
-    "class": ""
-  },
-  "brand": {
-    "title": "Marques",
-    "url": "/admin/brand",
-    "icon": "<i class=\"nav-icon fas fa-tag\"></i>",
-    "class": ""
+  "ingredient": {
+    "title": "Ingrédients",
+    "icon": "<i class=\"nav-icon fas fa-clipboard-list\"></i>",
+    "subs": {
+      "category": {
+        "title": "Catégories",
+        "url": "/admin/category-ingredient",
+        "icon": "<i class=\"nav-icon fas fa-tag\"></i>"
+      },
+      "brand": {
+        "title": "Marques",
+        "url": "/admin/brand",
+        "icon": "<i class=\"nav-icon fas fa-font-awesome\"></i>"
+      }
+    }
   },
   "administration": {
     "title": "Administration",
