@@ -12,7 +12,7 @@ class MediaModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['file_path', 'entity_id', 'entity_type'];
+    protected $allowedFields    = ['file_path','entity_id', 'entity_type','title','alt'];
     // Dates
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
@@ -23,7 +23,7 @@ class MediaModel extends Model
     protected $validationRules = [
         'file_path'   => 'required|string|is_unique[media.file_path,id,{id}]',
         'entity_id'   => 'required|integer',
-        'entity_type' => 'required|in_list[user,recipe,step,ingredient,brand]',
+        'entity_type' => 'required|in_list[user,recipe,recipe_mea,step,ingredient,brand]',
         'title'       => 'permit_empty|max_length[255]',
         'alt'         => 'permit_empty|max_length[255]',
     ];
@@ -48,4 +48,5 @@ class MediaModel extends Model
             'max_length' => 'Le texte alternatif ne peut pas dépasser 255 caractères.',
         ],
     ];
+
 }

@@ -12,7 +12,7 @@ class QuantityModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id_recipe', 'id_ingredient', 'id_unit', 'quantity'];
+    protected $allowedFields    = ['id_recipe','id_ingredient','id_unit', 'quantity'];
 
     protected $validationRules = [
         'id_ingredient' => 'required|integer',
@@ -40,11 +40,12 @@ class QuantityModel extends Model
         ],
     ];
 
-    public function getQuantitiesByRecipe($id_recipe)
-    {
-        $this->select('quantity.*, ingredient.name as ingredient_name, unit.name as unit_name');
-        $this->join('ingredient', 'quantity.id_ingredient = ingredient.id');
-        $this->join('unit', 'quantity.id_unit = unit.id');
-        return $this->where('id_recipe', $id_recipe)->findAll();
+    public function getQuantityByRecipe($id_recipe) {
+        $this->select('quantity.*, ingredient.name as ingredient, unit.name as unit');
+        $this->join('ingredient','ingredient.id = quantity.id_ingredient','left');
+        $this->join('unit','unit.id = quantity.id_unit','left');
+        $this->where('id_recipe', $id_recipe);
+        return $this->findAll();
     }
+
 }

@@ -12,7 +12,7 @@ class OptionModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['key', 'value'];
+    protected $allowedFields    = ['key','value'];
 
     protected $validationRules = [
         'key'   => 'required|max_length[255]|is_unique[option.key,id,{id}]',
@@ -29,4 +29,5 @@ class OptionModel extends Model
             'string' => 'La valeur doit être une chaîne de caractères.',
         ],
     ];
+
 }

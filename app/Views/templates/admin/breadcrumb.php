@@ -44,7 +44,7 @@
             </li>
         </ul>
     </div>
-    <?php if (count($breadcrumb) > 0) { ?>
+    <?php if (count($breadcrumb) > 0)  { ?>
         <div class="container-fluid px-4">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb my-0">

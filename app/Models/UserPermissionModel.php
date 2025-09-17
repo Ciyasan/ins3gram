@@ -8,18 +8,16 @@ use App\Traits\DataTableTrait;
 class UserPermissionModel extends Model
 {
     use DataTableTrait;
-
     protected $table            = 'user_permission';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['name', 'slug'];
-
+    protected $allowedFields    = ['name','slug'];
     protected $validationRules = [
         'name' => 'required|max_length[255]|is_unique[user_permission.name,id,{id}]',
-        'slug' => 'max_length[255]|is_unique[user_permission.slug,id,{id}]',
+        'slug' => 'max_length[255]|is_unique[user_permission.name,id,{id}]',
     ];
 
     protected $validationMessages = [
@@ -44,7 +42,6 @@ class UserPermissionModel extends Model
             $slug = url_title(convert_accented_characters($data['data']['name']), '-', true);
             $data['data']['slug'] = $slug;
         }
-
         return $data;
     }
     protected function getDataTableConfig(): array

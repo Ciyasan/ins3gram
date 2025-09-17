@@ -67,7 +67,7 @@ abstract class BaseController extends Controller
      *
      * @var string
      */
-    protected $title_prefix = 'Ins3gram';
+    protected $title_prefix = 'ins3gram';
 
     /**
      * Chemin de navigation pour la gestion des breadcrumbs.
@@ -96,7 +96,7 @@ abstract class BaseController extends Controller
 
     public function view($vue = null, $datas = [], $admin = true)
     {
-        $template_path = $admin ? 'templates/admin/' : 'templates/front/';
+        $template_path = $admin ? "templates/admin/" : "templates/front/";
         $flashData = session()->getFlashdata('data');
         if ($flashData) {
             $datas = array_merge($datas, $flashData);
@@ -109,9 +109,9 @@ abstract class BaseController extends Controller
             'localmenu' => $this->menu,
         ];
         return
-            view($template_path . "head", $headData)
+            view($template_path . 'head', $headData)
             . (($vue !== null) ? view($vue, $datas) : '')
-            . view($template_path . "footer", ['messages' => $this->messages]);
+            . view($template_path . 'footer', ['messages' => $this->messages]);
     }
 
     protected function loadMenu($admin): array

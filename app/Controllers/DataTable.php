@@ -57,6 +57,7 @@ class DataTable extends BaseController
             ];
 
             return $this->response->setJSON($result);
+
         } catch (\Exception $e) {
             log_message('error', 'DataTable Error: ' . $e->getMessage());
             return $this->response->setStatusCode(500)->setJSON(['error' => 'Internal server error']);

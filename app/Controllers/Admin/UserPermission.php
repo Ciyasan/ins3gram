@@ -27,8 +27,7 @@ class UserPermission extends BaseController
         return $this->redirect('admin/user-permission');
     }
 
-    public function update()
-    {
+    public function update() {
         $upm = model('UserPermissionModel');
         $data = $this->request->getPost();
         $id = $data['id'];
@@ -46,8 +45,7 @@ class UserPermission extends BaseController
         }
     }
 
-    public function delete()
-    {
+    public function delete() {
         $upm = model('UserPermissionModel');
         $id = $this->request->getPost('id');
         if ($upm->delete($id)) {

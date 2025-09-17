@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use CodeIgniter\Model;
 use App\Traits\Select2Searchable;
+use CodeIgniter\Model;
 
 class UnitModel extends Model
 {
@@ -27,6 +27,7 @@ class UnitModel extends Model
         ],
     ];
 
-    protected $select2SearchableFields = ['name'];
+    // Configuration pour Select2Searchable
+    protected $select2SearchFields = ['name'];
     protected $select2DisplayField = 'name';
 }

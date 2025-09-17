@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use CodeIgniter\Model;
 use App\Traits\DataTableTrait;
+use CodeIgniter\Model;
 
 class CategIngModel extends Model
 {
@@ -14,12 +14,12 @@ class CategIngModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['name', 'id_categ_parent'];
+    protected $allowedFields    = ['name','id_categ_parent'];
     protected $useTimestamps = false;
 
     protected $validationRules = [
         'name'          => 'required|max_length[255]|is_unique[categ_ing.name,id,{id}]',
-        'id_categ_parent' => 'permit_empty|integer',
+        'id_categ_parent'=> 'permit_empty|integer',
     ];
     protected $validationMessages = [
         'name' => [
@@ -31,6 +31,7 @@ class CategIngModel extends Model
             'integer' => 'L’ID du parent doit être un nombre.',
         ],
     ];
+
     protected function getDataTableConfig(): array
     {
         return [

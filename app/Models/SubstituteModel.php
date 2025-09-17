@@ -12,7 +12,7 @@ class SubstituteModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id_ingredient_base', 'id_ingredient_sub'];
+    protected $allowedFields    = ['id_ingredient_base','id_ingredient_sub'];
     protected $validationRules = [
         'id_ingredient_base' => 'required|integer',
         'id_ingredient_sub'  => 'required|integer|different[id_ingredient_base]',
@@ -29,4 +29,5 @@ class SubstituteModel extends Model
             'different' => 'L’ingrédient substitut doit être différent de l’ingrédient de base.',
         ],
     ];
+
 }

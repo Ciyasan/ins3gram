@@ -12,7 +12,7 @@ class TagRecipeModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id_recipe', 'id_tag'];
+    protected $allowedFields    = ['id_recipe','id_tag'];
     protected $validationRules = [
         'id_recipe' => 'required|integer',
         'id_tag'    => 'required|integer',
@@ -28,4 +28,5 @@ class TagRecipeModel extends Model
             'integer'  => 'L’ID du tag doit être un nombre.',
         ],
     ];
+
 }

@@ -1,10 +1,9 @@
 <?php
-
 namespace App\Filters;
 
-use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
+use CodeIgniter\Filters\FilterInterface;
 use App\Entities\User;
 
 class AuthFilter implements FilterInterface
@@ -23,6 +22,7 @@ class AuthFilter implements FilterInterface
 
             // Flash message
             $session->setFlashdata('error', 'Vous devez être connecté pour accéder à cette page.');
+
             // Redirection
             return redirect()->to('/sign-in');
         }
@@ -61,8 +61,8 @@ class AuthFilter implements FilterInterface
             if (!$isAllowed) {
                 // Logger la tentative d'accès avec des permissions insuffisantes
                 log_message('warning', "User {$user->id} with insufficient permissions tried to access: " . uri_string() . " (required: " . implode(', ', $arguments) . ")");
-                $session->setFlashdata('error', 'Vous n\'avez pas les permissions nécessaires pour accéder à cette page.');
 
+                $session->setFlashdata('error', 'Vous n\'avez pas les permissions nécessaires pour accéder à cette page.');
 
                 // Rediriger vers une page d'erreur 403
                 return redirect()->to('/forbidden');
