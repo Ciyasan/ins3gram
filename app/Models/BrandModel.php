@@ -4,11 +4,9 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 use App\Traits\DataTableTrait;
-
 class BrandModel extends Model
 {
     use DataTableTrait;
-
     protected $table            = 'brand';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;

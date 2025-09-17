@@ -12,7 +12,7 @@ class OpinionModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['comments', 'score', 'id_recipe', 'id_user'];
+    protected $allowedFields    = ['comments','score','id_recipe','id_user'];
 
     // Dates
     protected $useTimestamps = true;
@@ -47,4 +47,6 @@ class OpinionModel extends Model
             'integer'  => 'L’ID de l’utilisateur doit être un nombre.',
         ],
     ];
+
+
 }

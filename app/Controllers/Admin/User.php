@@ -4,7 +4,6 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
-use CodeIgniter\Model;
 
 class User extends BaseController
 {
@@ -13,8 +12,7 @@ class User extends BaseController
         return $this->view('/admin/user/index');
     }
 
-    public function edit($id_user)
-    {
+    public function edit($id_user) {
         $um = Model('UserModel');
         $user = $um->find($id_user);
         if (!$user) {
@@ -26,8 +24,7 @@ class User extends BaseController
         return $this->view('/admin/user/form', ['user' => $user, 'permissions' => $permissions]);
     }
 
-    public function create()
-    {
+    public function create() {
         helper('form');
         $permissions = Model('UserPermissionModel')->findAll();
 
@@ -71,8 +68,7 @@ class User extends BaseController
         }
     }
 
-    public function insert()
-    {
+    public function insert() {
         $userModel = model('UserModel');
         $data = $this->request->getPost();
 
@@ -94,8 +90,7 @@ class User extends BaseController
         }
     }
 
-    public function switchActive()
-    {
+    public function switchActive() {
         $id = $this->request->getPost('id_user');
         $userModel = model('UserModel');
 

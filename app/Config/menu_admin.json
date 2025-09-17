@@ -7,9 +7,9 @@
   },
   "recipe": {
     "title": "Recettes",
-    "url": "/admin/recipe",
-    "icon": "<i class=\"nav-icon fas fa-cocktail\"></i>",
-    "class": ""
+    "url" : "/admin/recipe",
+    "icon" : "<i class=\"nav-icon fas fa-martini-glass-citrus\"></i>",
+    "class" : ""
   },
   "ingredient": {
     "title": "Ingrédients",

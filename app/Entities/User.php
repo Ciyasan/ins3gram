@@ -7,36 +7,36 @@ use CodeIgniter\Entity\Entity;
 class User extends Entity
 {
     protected $attributes = [
-        'id'         => null,
-        'email'     => null,
-        'password'  => null,
-        'username'  => null,
-        'first_name' => null,
-        'last_name'  => null,
-        'birthdate' => null,
+        'id'            => null,
+        'email'         => null,
+        'password'      => null,
+        'username'      => null,
+        'first_name'    => null,
+        'last_name'     => null,
+        'birthdate'     => null,
         'id_permission' => null,
-        'created_at' => null,
-        'updated_at' => null,
-        'deleted_at' => null,
+        'created_at'    => null,
+        'updated_at'    => null,
+        'deleted_at'    => null,
     ];
-    protected $casts   = [
-        'id' => 'integer',
-        'email' => 'string',
-        'password' => 'string',
-        'username' => 'string',
-        'first_name' => 'string',
-        'last_name' => 'string',
-        'birthdate' => 'datetime',
+    protected $casts = [
+        'id'            => 'integer',
+        'email'         => 'string',
+        'password'      => 'string',
+        'username'      => 'string',
+        'first_name'    => 'string',
+        'last_name'     => 'string',
+        'birthdate'     => 'datetime',
         'id_permission' => 'integer',
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-        'deleted_at' => 'datetime',
+        'created_at'    => 'datetime',
+        'updated_at'    => 'datetime',
+        'deleted_at'    => 'datetime',
     ];
+
     protected $hidden = ['password'];
+    protected $dates   = ['created_at', 'updated_at', 'deleted_at'];
 
-    protected $dates = ['created_at', 'updated_at', 'deleted_at'];
-
-    public function getFullName(): string
+    public function getFullName():string
     {
         return trim($this->attributes['first_name'] . ' ' . $this->attributes['last_name']);
     }
@@ -87,4 +87,6 @@ class User extends Entity
 
         return $permission ? $permission['name'] : 'Utilisateur';
     }
+
+
 }

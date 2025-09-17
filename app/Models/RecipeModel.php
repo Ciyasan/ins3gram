@@ -12,20 +12,19 @@ class RecipeModel extends Model
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
-    protected $useSoftDeletes   = false;
+    protected $useSoftDeletes   = true;
     protected $protectFields    = true;
-    protected $allowedFields    = ['name', 'alcool', 'id_user', 'description'];
+    protected $allowedFields    = ['name', 'alcool','id_user','description'];
     // Dates
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
     protected $deletedField  = 'deleted_at';
-    protected $beforeInsert = ['setInsertValidationRules', 'validateAlcool'];
-    protected $beforeUpdate = ['setUpdateValidationRules', 'validateAlcool'];
+    protected $beforeInsert = ['setInsertValidationRules','validateAlcool'];
+    protected $beforeUpdate = ['setUpdateValidationRules','validateAlcool'];
 
-    protected function setInsertValidationRules(array $data)
-    {
+    protected function setInsertValidationRules(array $data) {
         $this->validationRules = [
             'name'    => 'required|max_length[255]|is_unique[recipe.name]',
             'alcool'  => 'permit_empty|in_list[0,1,on]',
@@ -34,8 +33,7 @@ class RecipeModel extends Model
         ];
         return $data;
     }
-    protected function setUpdateValidationRules(array $data)
-    {
+    protected function setUpdateValidationRules(array $data) {
         $id = $data['data']['id_recipe'] ?? null;
         $this->validationRules = [
             'name'    => "required|max_length[255]|is_unique[recipe.name,id,$id]",
@@ -60,8 +58,14 @@ class RecipeModel extends Model
         ],
     ];
 
-    protected function validateAlcool(array $data)
+    public function reactive(int $id): bool
     {
+        return $this->builder()
+            ->where('id', $id)
+            ->update(['deleted_at' => null, 'updated_at' => date('Y-m-d H:i:s')]);
+    }
+
+    protected function validateAlcool(array $data) {
         $data['data']['alcool'] = isset($data['data']['alcool']) ? 1 : 0;
         return $data;
     }

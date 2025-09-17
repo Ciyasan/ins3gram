@@ -5,7 +5,8 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-// Routes de l'administration
+
+//Routes de l'administration
 require APPPATH . 'Config/Routes/Admin.php';
 
 //Routes du site (front)

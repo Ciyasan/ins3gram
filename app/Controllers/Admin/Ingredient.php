@@ -7,11 +7,6 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 class Ingredient extends BaseController
 {
-    public function index()
-    {
-        //
-    }
-
     public function search()
     {
         $request = $this->request;

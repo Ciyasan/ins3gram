@@ -8,13 +8,14 @@ use App\Traits\Select2Searchable;
 class IngredientModel extends Model
 {
     use Select2Searchable;
+
     protected $table            = 'ingredient';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['name', 'description', 'id_brand', 'id_categ'];
+    protected $allowedFields    = ['name','description','id_brand','id_categ'];
     protected $validationRules = [
         'name'      => 'required|max_length[255]|is_unique[ingredient.name,id,{id}]',
         'description' => 'permit_empty|string',
@@ -35,7 +36,10 @@ class IngredientModel extends Model
             'integer' => 'L’ID de marque doit être un nombre.',
         ],
     ];
-    protected $select2SearchableFields = ['name', 'description'];
+
+    // Configuration pour Select2Searchable
+    protected $select2SearchFields = ['name', 'description'];
     protected $select2DisplayField = 'name';
     protected $select2AdditionalFields = ['description'];
+
 }

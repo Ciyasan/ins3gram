@@ -11,7 +11,7 @@ class FavoriteModel extends Model
     protected $useAutoIncrement = false;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
-    protected $allowedFields    = ['id_user', 'id_recipe'];
+    protected $allowedFields    = ['id_user','id_recipe'];
 
     protected $validationRules = [
         'id_recipe' => 'required|integer',
@@ -28,4 +28,5 @@ class FavoriteModel extends Model
             'integer'  => 'L’ID de l’utilisateur doit être un nombre.',
         ],
     ];
+
 }

@@ -12,9 +12,8 @@
                 <li class="nav-item <?= ($localmenu === $km ? 'active' : '') ?>"
                     id="menu_<?= $km ?>">
                     <a class="nav-link" href="<?= base_url($menu['url']) ?>">
-                        <?php if (isset($menu['icon'])) {
-                            echo $menu['icon'];
-                        } else { ?><svg class="nav-icon"><span class="bullet bullet-dot"></svg><?php } ?>
+                        <?php if (isset($menu['icon'])) { echo $menu['icon']; }
+                        else { ?><svg class="nav-icon"><span class="bullet bullet-dot"></svg><?php } ?>
                         <?= $menu['title'] ?>
                     </a>
                 </li>
@@ -25,25 +24,20 @@
                         <?= $menu['title'] ?></a>
                     <ul class="nav-group-items compact">
                         <?php
-                        foreach ($menu['subs'] as $ksm => $smenu) {
+                        foreach($menu['subs'] as $ksm => $smenu) {
 
-                            if (isset($smenu['admin'])) {
-                                continue;
-                            }
-                            if (isset($smenu['require'])) {
-                                continue;
-                            } ?>
+                            if (isset($smenu['admin']) ) { continue; }
+                            if (isset($smenu['require'])) { continue; } ?>
                             <li class="nav-item ps-2" id="menu_<?= $ksm ?>"><a class="nav-link" href="<?= base_url($smenu['url']); ?>">
                                     <?php if (isset($smenu['icon'])) echo $smenu['icon']; ?>
                                     <?= $smenu['title'] ?></a></li>
                         <?php } ?>
                     </ul>
                 </li>
-        <?php }
-        } ?>
+            <?php }} ?>
 
         <li class="nav-item mt-auto">
-            <a class="nav-link" href="<?= base_url('auth/logout'); ?>">
+            <a class="nav-link" href="<?= base_url('/auth/logout'); ?>">
                 <i class="fa-solid fa-arrow-right-from-bracket me-2"></i> Déconnexion</a>
         </li>
     </ul>

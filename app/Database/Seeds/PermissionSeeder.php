@@ -11,11 +11,11 @@ class PermissionSeeder extends Seeder
         $data = [
             [
                 'name' => 'Administrateur',
-                'slug' => 'administrateur'
+                'slug' => 'administrateur',
             ],
             [
                 'name' => 'Utilisateur',
-                'slug' => 'utilisateur'
+                'slug' => 'utilisateur',
             ],
         ];
         $this->db->table('user_permission')->insertBatch($data);

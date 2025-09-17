@@ -12,7 +12,7 @@ class ChatModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['content', 'id_sender', 'id_receiver'];
+    protected $allowedFields    = ['content','id_sender','id_receiver'];
 
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
@@ -23,7 +23,7 @@ class ChatModel extends Model
     protected $validationRules = [
         'content'    => 'required|string|max_length[255]',
         'id_sender'  => 'required|integer',
-        'id_receiver' => 'required|integer',
+        'id_receiver'=> 'required|integer',
     ];
 
     protected $validationMessages = [
@@ -40,4 +40,5 @@ class ChatModel extends Model
             'integer'  => 'L’ID du destinataire doit être un nombre.',
         ],
     ];
+
 }
