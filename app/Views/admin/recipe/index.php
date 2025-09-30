@@ -39,16 +39,21 @@
                     model: 'RecipeModel'
                 }
             },
-            columns: [
-                { data: 'id' },
-                { data: 'name' },
-                { data: 'creator',
-                render : function(data, type, row, meta) {
-                    return `<a class=" link-underline link-underline-opacity-0" href=<?= base_url('admin/user/') ?>${row.id_user}>${data}</a>`
-                }
+            columns: [{
+                    data: 'id'
                 },
-                { data: 'updated_at',
-                    render : function(data, type, row, meta) {
+                {
+                    data: 'name'
+                },
+                {
+                    data: 'creator',
+                    render: function(data, type, row, meta) {
+                        return `<a class=" link-underline link-underline-opacity-0" href=<?= base_url('admin/user/') ?>${row.id_user}>${data}</a>`
+                    }
+                },
+                {
+                    data: 'updated_at',
+                    render: function(data, type, row, meta) {
                         let date = new Date(data);
                         return date.toLocaleDateString("fr") + " " + date.toLocaleTimeString("fr");
                     }
@@ -80,7 +85,9 @@
                     }
                 }
             ],
-            order: [[0, 'desc']],
+            order: [
+                [0, 'desc']
+            ],
             pageLength: 10,
             language: {
                 url: baseUrl + 'js/datatable/datatable-2.1.4-fr-FR.json',
