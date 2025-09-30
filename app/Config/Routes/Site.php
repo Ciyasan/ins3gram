@@ -11,6 +11,5 @@ $routes->group('recette', function ($routes) {
   $routes->get('/', 'Recipe::index');
   $routes->get('(:any)', 'Recipe::show/$1');
 });
-
 //dataTable
 $routes->post('/datatable/searchdatatable', 'DataTable::searchdatatable');
