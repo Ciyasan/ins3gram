@@ -105,29 +105,6 @@ class RecipeModel extends Model
         $recipe['steps'] = $steps; //on ajoute à notre recette
         return $recipe;
     }
-    private function applyFilters($filters = [])
-    {
-        // TODO : Filtre alcool
-        if (isset($filters['alcool']) && $filters['alcool'] == 1) {
-            $this->where('recipe.alcool', 1);
-        }
-        if (isset($filters['search']) && !empty(trim($filters['search']))) {
-            $search = trim($filters['search']);
-            $this->like('recipe.name', $search);
-        }
-
-        // TODO : Autres filtres...
-    }
-
-    private function getValidOrderField($field)
-    {
-        $allowedFields = [
-            'name' => 'recipe.name',
-            'created_at' => 'recipe.created_at',
-            'score' => 'score'
-        ];
-        return $allowedFields[$field] ?? 'recipe.name';
-    }
 
 
     public function getAllRecipes($filters = [], $orderBy = 'name', $orderDirection = 'ASC', $perPage = 8, $page = 1)
@@ -136,10 +113,10 @@ class RecipeModel extends Model
         $this->select('recipe.id, recipe.name, alcool, slug, media.file_path as mea, COALESCE(AVG(score), 0) as score');
         $this->join('media', ' recipe.id = media.entity_id AND media.entity_type = \'recipe_mea\'', 'left');
         $this->join('opinion', ' opinion.id_recipe = recipe.id', 'left');
+        // Ajoutez cette ligne après les JOIN
         $this->applyFilters($filters);
-        $this->orderBy($this->getValidOrderField($orderBy), $orderDirection);
+        //$this->orderBy($this->getValidOrderField($orderBy), $orderDirection);
         $this->groupBy('recipe.id');
-        // TODO : Tri et pagination
         $data = $this->paginate($perPage, 'default', $page);
         return [
             'data' => $data,
@@ -147,6 +124,39 @@ class RecipeModel extends Model
         ];
     }
 
+    private function applyFilters($filters = [])
+    {
+        if (isset($filters['alcool'])) {
+            if ($filters['alcool'] == 1) {
+                $this->where('recipe.alcool', 1);
+            } else if ($filters['alcool'] == 0) {
+                $this->where('recipe.alcool', 0);
+            }
+        }
+        if (isset($filters['search']) && !empty(trim($filters['search']))) {
+            $search = trim($filters['search']);
+            $this->like('recipe.name', $search);
+        }
+        if (isset($filters['ingredients']) && !empty($filters['ingredients'])) {
+            $ingredientIds = $filters['ingredients'];
+            $this->join('quantity', 'recipe.id = quantity.id_recipe');
+            $this->whereIn('quantity.id_ingredient', $ingredientIds);
+            $this->having('COUNT(DISTINCT quantity.id_ingredient) >=', count($ingredientIds));
+        }
+
+        $sort = $filters['sort'] ?? 'name_asc';
+        switch ($sort) {
+            case 'name_asc':
+                $this->orderBy('recipe.name', 'ASC');
+                break;
+            case 'name_desc':
+                $this->orderBy('recipe.name', 'DESC');
+                break;
+            case 'score_desc':
+                $this->orderBy('score', 'DESC');
+                break;
+        }
+    }
     public function countAllRecipes($filters = [])
     {
         // Même construction que getAllRecipes mais pour compter
@@ -157,8 +167,15 @@ class RecipeModel extends Model
         $this->groupBy('recipe.id');
         return $this->countAllResults();
     }
-
-
+    private function getValidOrderField($field)
+    {
+        $allowedFields = [
+            'name' => 'recipe.name',
+            'created_at' => 'recipe.created_at',
+            'score' => 'score'
+        ];
+        return $allowedFields[$field] ?? 'recipe.name';
+    }
 
     public function reactive(int $id): bool
     {
