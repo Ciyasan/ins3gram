@@ -58,3 +58,8 @@
 .ls-recipe .fa-star {
   color: var(--bs-yellow);
 }
+/* Bandeau droit en haut à droite de l'image */
+.ribbon {
+  bottom: 0px;
+  right: 0px;
+}

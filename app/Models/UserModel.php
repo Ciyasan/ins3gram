@@ -6,6 +6,7 @@ use App\Entities\User;
 use App\Traits\Select2Searchable;
 use CodeIgniter\Model;
 use App\Traits\DataTableTrait;
+
 class UserModel extends Model
 {
     use DataTableTrait;
@@ -16,7 +17,7 @@ class UserModel extends Model
     protected $returnType       = 'App\Entities\User';
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
-    protected $allowedFields    = ['email','password','username','first_name','last_name', 'birthdate', 'id_permission'];
+    protected $allowedFields    = ['email', 'password', 'username', 'first_name', 'last_name', 'birthdate', 'id_permission'];
     // Dates
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
@@ -36,7 +37,7 @@ class UserModel extends Model
             'first_name' => 'permit_empty|max_length[255]',
             'last_name'  => 'permit_empty|max_length[255]',
             'birthdate'  => 'required|valid_date',
-            'id_permission' => 'required|integer',
+
         ];
         return $data;
     }
@@ -51,7 +52,7 @@ class UserModel extends Model
             'first_name' => 'permit_empty|max_length[255]',
             'last_name'  => 'permit_empty|max_length[255]',
             'birthdate'  => 'required|valid_date',
-            'id_permission' => 'required|integer',
+
         ];
         return $data;
     }
@@ -59,7 +60,7 @@ class UserModel extends Model
     protected $validationMessages = [
         'email' => [
             'required'   => 'L’email est obligatoire.',
-            'valid_email'=> 'Veuillez saisir une adresse email valide.',
+            'valid_email' => 'Veuillez saisir une adresse email valide.',
             'max_length' => 'L’email ne peut pas dépasser 255 caractères.',
             'is_unique'  => 'Cet email est déjà utilisé.',
         ],
@@ -83,10 +84,6 @@ class UserModel extends Model
         'birthdate' => [
             'required'   => 'La date de naissance est obligatoire.',
             'valid_date' => 'Veuillez saisir une date valide.',
-        ],
-        'id_permission' => [
-            'required' => 'Un rôle doit être attribué.',
-            'integer'  => 'L’ID du rôle doit être un nombre.',
         ],
     ];
 

@@ -14,7 +14,7 @@ class User extends Entity
         'first_name'    => null,
         'last_name'     => null,
         'birthdate'     => null,
-        'id_permission' => null,
+        'id_permission' => 2,
         'created_at'    => null,
         'updated_at'    => null,
         'deleted_at'    => null,
@@ -36,7 +36,7 @@ class User extends Entity
     protected $hidden = ['password'];
     protected $dates   = ['created_at', 'updated_at', 'deleted_at'];
 
-    public function getFullName():string
+    public function getFullName(): string
     {
         return trim($this->attributes['first_name'] . ' ' . $this->attributes['last_name']);
     }
@@ -87,6 +87,4 @@ class User extends Entity
 
         return $permission ? $permission['name'] : 'Utilisateur';
     }
-
-
 }

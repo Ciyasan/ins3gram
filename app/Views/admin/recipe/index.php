@@ -43,17 +43,20 @@
                     data: 'id'
                 },
                 {
-                    data: 'name'
-                },
-                {
-                    data: 'creator',
-                    render: function(data, type, row, meta) {
-                        return `<a class=" link-underline link-underline-opacity-0" href=<?= base_url('admin/user/') ?>${row.id_user}>${data}</a>`
+                    data: 'name',
+                    render: function(data, type, row) {
+                        return `<a class="link-underline link-underline-opacity-0"
+                                    href="<?= base_url('admin/recipe/') ?>${row.id}">
+                                    ${data}
+                                </a>`;
                     }
                 },
                 {
+                    data: 'creator'
+                },
+                {
                     data: 'updated_at',
-                    render: function(data, type, row, meta) {
+                    render: function(data) {
                         let date = new Date(data);
                         return date.toLocaleDateString("fr") + " " + date.toLocaleTimeString("fr");
                     }
