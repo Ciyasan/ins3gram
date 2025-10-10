@@ -14,18 +14,17 @@ class RecipeModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
-    protected $allowedFields    = ['name', 'slug', 'alcool', 'id_user', 'description'];
+    protected $allowedFields    = ['name','slug', 'alcool','id_user','description'];
     // Dates
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
     protected $deletedField  = 'deleted_at';
-    protected $beforeInsert = ['setInsertValidationRules', 'validateAlcool'];
-    protected $beforeUpdate = ['setUpdateValidationRules', 'validateAlcool'];
+    protected $beforeInsert = ['setInsertValidationRules','validateAlcool'];
+    protected $beforeUpdate = ['setUpdateValidationRules','validateAlcool'];
 
-    protected function setInsertValidationRules(array $data)
-    {
+    protected function setInsertValidationRules(array $data) {
         $this->validationRules = [
             'name'    => 'required|max_length[255]|is_unique[recipe.name]',
             'alcool'  => 'permit_empty|in_list[0,1,on]',
@@ -34,8 +33,7 @@ class RecipeModel extends Model
         ];
         return $data;
     }
-    protected function setUpdateValidationRules(array $data)
-    {
+    protected function setUpdateValidationRules(array $data) {
         $id = $data['data']['id_recipe'] ?? null;
         $this->validationRules = [
             'name'    => "required|max_length[255]|is_unique[recipe.name,id,$id]",
@@ -66,16 +64,15 @@ class RecipeModel extends Model
      * @param $slug null Récupère depuis un slug (l'ID doit être à null sinon il est prioritaire)
      * @return array Tableau contenant toutes les informations de notre recette
      */
-    public function getFullRecipe($id = null, $slug = null)
-    {
-        if ($id != null) {
+    public function getFullRecipe($id = null, $slug = null) {
+        if($id != null) {
             $recipe = $this->withDeleted()->find($id);
-        } elseif ($slug != null) {
+        } elseif($slug != null) {
             $recipe = $this->where('slug', $slug)->withDeleted()->first();
         } else {
             return [];
         }
-        if (!$recipe) return [];
+        if(!$recipe) return [];
         $id_recipe = $recipe['id'];
         //Récupération de l'utilisateur qui à créé la recette (même s'il est désactivé)
         $user = Model('UserModel')->withDeleted()->find($recipe['id_user']);
@@ -85,7 +82,7 @@ class RecipeModel extends Model
         $ingredients = Model('QuantityModel')->getQuantityByRecipe($id_recipe);
         $recipe['ingredients'] = $ingredients; //on ajoute au tableau recipe
         //Gestion pour le cas d'un ID (notamment pour l'édition en BO)
-        if ($id != null) {
+        if($id != null) {
             //Récupération des mots clés associés à notre recette
             $recipe_tags = Model('TagRecipeModel')->where('id_recipe', $id_recipe)->findAll();
             //Création d'un tableau à une dimension pour utiliser in_array (directement dans notre tableau recipe)
@@ -93,7 +90,7 @@ class RecipeModel extends Model
                 $recipe['tags'][] = $recipe_tag['id_tag'];
             }
         } else { //Cas d'un SLUG (notamment pour l'affichage en FO)
-            $recipe['tags'] = Model('TagRecipeModel')->join('tag', 'tag_recipe.id_tag = tag.id')->where('id_recipe', $id_recipe)->findAll();
+            $recipe['tags'] = Model('TagRecipeModel')->join('tag','tag_recipe.id_tag = tag.id')->where('id_recipe', $id_recipe)->findAll();
         }
         $mediamodel = Model('MediaModel');
         //Récupération de l'image principale et stocker dans le tableau recipe
@@ -107,12 +104,11 @@ class RecipeModel extends Model
     }
 
 
-    public function getAllRecipes($filters = [], $orderBy = 'name', $orderDirection = 'ASC', $perPage = 8, $page = 1)
-    {
+    public function getAllRecipes($filters = [], $orderBy = 'name', $orderDirection = 'ASC', $perPage = 8, $page = 1) {
         // Requête de base identique à votre ancienne version
         $this->select('recipe.id, recipe.name, alcool, slug, media.file_path as mea, COALESCE(AVG(score), 0) as score');
-        $this->join('media', ' recipe.id = media.entity_id AND media.entity_type = \'recipe_mea\'', 'left');
-        $this->join('opinion', ' opinion.id_recipe = recipe.id', 'left');
+        $this->join('media',' recipe.id = media.entity_id AND media.entity_type = \'recipe_mea\'','left');
+        $this->join('opinion',' opinion.id_recipe = recipe.id','left');
         // Ajoutez cette ligne après les JOIN
         $this->applyFilters($filters);
         //$this->orderBy($this->getValidOrderField($orderBy), $orderDirection);
@@ -124,8 +120,7 @@ class RecipeModel extends Model
         ];
     }
 
-    private function applyFilters($filters = [])
-    {
+    private function applyFilters($filters = []) {
         if (isset($filters['alcool'])) {
             if ($filters['alcool'] == 1) {
                 $this->where('recipe.alcool', 1);
@@ -146,29 +141,22 @@ class RecipeModel extends Model
 
         $sort = $filters['sort'] ?? 'name_asc';
         switch ($sort) {
-            case 'name_asc':
-                $this->orderBy('recipe.name', 'ASC');
-                break;
-            case 'name_desc':
-                $this->orderBy('recipe.name', 'DESC');
-                break;
-            case 'score_desc':
-                $this->orderBy('score', 'DESC');
-                break;
+            case 'name_asc': $this->orderBy('recipe.name', 'ASC'); break;
+            case 'name_desc': $this->orderBy('recipe.name', 'DESC'); break;
+            case 'score_desc': $this->orderBy('score', 'DESC'); break;
         }
+
     }
-    public function countAllRecipes($filters = [])
-    {
+    public function countAllRecipes($filters = []) {
         // Même construction que getAllRecipes mais pour compter
         $this->select('recipe.id');
-        $this->join('media', ' recipe.id = media.entity_id AND media.entity_type = \'recipe_mea\'', 'left');
-        $this->join('opinion', ' opinion.id_recipe = recipe.id', 'left');
+        $this->join('media',' recipe.id = media.entity_id AND media.entity_type = \'recipe_mea\'','left');
+        $this->join('opinion',' opinion.id_recipe = recipe.id','left');
         $this->applyFilters($filters);
         $this->groupBy('recipe.id');
         return $this->countAllResults();
     }
-    private function getValidOrderField($field)
-    {
+    private function getValidOrderField($field) {
         $allowedFields = [
             'name' => 'recipe.name',
             'created_at' => 'recipe.created_at',
@@ -184,8 +172,7 @@ class RecipeModel extends Model
             ->update(['deleted_at' => null, 'updated_at' => date('Y-m-d H:i:s')]);
     }
 
-    protected function validateAlcool(array $data)
-    {
+    protected function validateAlcool(array $data) {
         $data['data']['alcool'] = isset($data['data']['alcool']) ? 1 : 0;
         return $data;
     }

@@ -9,14 +9,12 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
                 <?php
-                if (isset($session_user)) :
+                if(isset($session_user)) :
                     if ($session_user->isAdmin()) : ?>
                         <li>
                             <a class="dropdown-item" href="<?= base_url('/admin/dashboard'); ?>">Admin</a>
                         </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
+                        <li><hr class="dropdown-divider"></li>
                     <?php endif; ?>
                     <li>
                         <a class="dropdown-item" href="<?= base_url(); ?>">Mon Profil</a>
@@ -37,7 +35,7 @@
         </div>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -58,7 +56,7 @@
                     <?php } else { ?>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
-                                aria-expanded="false">
+                               aria-expanded="false">
                                 <?= (isset($menu['icon'])) ? $menu['icon'] : ""; ?>
                                 <?= $menu['title'] ?></a>
                             <ul class="dropdown-menu">
@@ -73,13 +71,13 @@
                                     } ?>
                                     <li class="dropdown-item" id="menu_<?= $ksm ?>">
                                         <a class="nav-link"
-                                            href="<?= base_url($smenu['url']); ?>"><?php if (isset($smenu['icon'])) echo $smenu['icon']; ?>
+                                           href="<?= base_url($smenu['url']); ?>"><?php if (isset($smenu['icon'])) echo $smenu['icon']; ?>
                                             <?= $smenu['title'] ?></a>
                                     </li>
                                 <?php } ?>
                             </ul>
                         </li>
-                <?php }
+                    <?php }
                 } ?>
                 <li class="nav-item dropdown ms-auto d-none d-lg-block">
                     <a class="dropdown-toggle nav-link" href="#" data-bs-toggle="dropdown">
@@ -87,33 +85,36 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <?php
-                        if (isset($session_user)) :
-                            if ($session_user->isAdmin()) : ?>
+                            if(isset($session_user)) :
+                                if ($session_user->isAdmin()) : ?>
+                                    <li>
+                                        <a class="dropdown-item" href="<?= base_url('/admin/dashboard'); ?>">Admin</a>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                <?php endif; ?>
                                 <li>
-                                    <a class="dropdown-item" href="<?= base_url('/admin/dashboard'); ?>">Admin</a>
+                                    <a class="dropdown-item" href="<?= base_url(); ?>">Mon Profil</a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item" href="<?= base_url('/messagerie'); ?>">Messagerie</a>
                                 </li>
                                 <li>
-                                    <hr class="dropdown-divider">
+                                    <a class="dropdown-item" href="<?= base_url('/auth/logout'); ?>">Se déconnecter</a>
                                 </li>
-                            <?php endif; ?>
-                            <li>
-                                <a class="dropdown-item" href="<?= base_url(); ?>">Mon Profil</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="<?= base_url('/auth/logout'); ?>">Se déconnecter</a>
-                            </li>
-                        <?php else : ?>
-                            <li>
-                                <a class="dropdown-item" href="<?= base_url('sign-in'); ?>">Se connecter</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="<?= base_url('register'); ?>">S'inscrire</a>
-                            </li>
-                        <?php endif;
+                            <?php else : ?>
+                                <li>
+                                    <a class="dropdown-item" href="<?= base_url('sign-in'); ?>">Se connecter</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="<?= base_url('register'); ?>">S'inscrire</a>
+                                </li>
+                            <?php endif;
                         ?>
                     </ul>
                 </li>
             </ul>
         </div>
+
     </div>
 </nav>

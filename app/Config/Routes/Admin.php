@@ -9,24 +9,24 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'au
         $routes->get('new', 'User::create');
         $routes->post('update', 'User::update');
         $routes->post('insert', 'User::insert');
-        $routes->post('switch-active', 'User::switchActive');
+        $routes->post('switch-active','User::switchActive');
         $routes->get('search', 'User::search');
     });
 
     $routes->group('user-permission', function ($routes) {
-        $routes->get('/', 'UserPermission::index');
-        $routes->post('update', 'UserPermission::update');
-        $routes->post('insert', 'UserPermission::insert');
-        $routes->post('delete', 'UserPermission::delete');
+       $routes->get('/', 'UserPermission::index');
+       $routes->post('update', 'UserPermission::update');
+       $routes->post('insert', 'UserPermission::insert');
+       $routes->post('delete', 'UserPermission::delete');
     });
 
     $routes->group('recipe', function ($routes) {
-        $routes->get('/', 'Recipe::index');
-        $routes->get('(:num)', 'Recipe::edit/$1');
-        $routes->get('new', 'Recipe::create');
-        $routes->post('insert', 'Recipe::insert');
-        $routes->post('update', 'Recipe::update');
-        $routes->post('switch-active', 'Recipe::switchActive');
+       $routes->get('/', 'Recipe::index');
+       $routes->get('(:num)', 'Recipe::edit/$1');
+       $routes->get('new', 'Recipe::create');
+       $routes->post('insert', 'Recipe::insert');
+       $routes->post('update', 'Recipe::update');
+       $routes->post('switch-active','Recipe::switchActive');
     });
 
     $routes->group('brand', function ($routes) {
@@ -36,16 +36,21 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'au
         $routes->post('delete', 'Brand::delete');
     });
 
+    $routes->group('ingredient', function ($routes) {
+        $routes->get('/', 'Ingredient::index');
+        $routes->get('new', 'Ingredient::create');
+        $routes->get('(:num)', 'Ingredient::edit/$1');
+        $routes->get('search', 'Ingredient::search');
+        $routes->post('insert', 'Ingredient::insert');
+        $routes->post('update', 'Ingredient::update');
+    });
+
     $routes->group('unit', function ($routes) {
         $routes->get('search', 'Unit::search');
     });
 
-    $routes->group('ingredient', function ($routes) {
-        $routes->get('search', 'Ingredient::search');
-    });
-
     $routes->group('category-ingredient', function ($routes) {
-        $routes->get('/', 'CategIng::index');
+       $routes->get('/', 'CategIng::index');
         $routes->post('update', 'CategIng::update');
         $routes->post('insert', 'CategIng::insert');
         $routes->post('delete', 'CategIng::delete');
@@ -58,3 +63,4 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'au
         $routes->post('delete', 'Tag::delete');
     });
 });
+
