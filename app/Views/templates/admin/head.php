@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="fr-FR" data-coreui-theme="light">
-
 <head>
     <base href="<?= base_url('./') ?>">
     <meta charset="utf-8">
@@ -12,10 +11,10 @@
     <title><?= $title ?></title>
     <link rel="icon" type="image/png" href="<?= base_url('/assets/favicon/favicon-96x96.png') ?>" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="<?= base_url('/assets/favicon/favicon.svg') ?>" />
-    <link rel="shortcut icon" href="<?= base_url('/assets/favicon/favicon.ico') ?>" />
-    <link rel="apple-touch-icon" sizes="180x180" href="<?= base_url('/assets/favicon/apple-touch-icon.png') ?>" />
+    <link rel="shortcut icon" href="<?= base_url('/assets/favicon/favicon.ico') ?>"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="<?= base_url('/assets/favicon/apple-touch-icon.png') ?>"/>
     <meta name="apple-mobile-web-app-title" content="Ins3gram" />
-    <link rel="manifest" href="<?= base_url('/assets/favicon/site.webmanifest') ?>" />
+    <link rel="manifest" href="<?= base_url('/assets/favicon/site.webmanifest') ?>"/>
     <meta name="theme-color" content="#ffffff">
     <!-- CSS-->
     <link rel="stylesheet" href="<?= base_url('/vendors/simplebar/css/simplebar.css') ?>">
@@ -37,9 +36,9 @@
     <script src="<?= base_url('/vendors/simplebar/js/simplebar.min.js') ?>"></script>
     <script src="<?= base_url('/vendors/@coreui/utils/js/index.js') ?>"></script>
     <script>
-        var base_url = '<?= base_url(); ?>';
-        let csrfName = '<?= csrf_token() ?>';
-        let csrfHash = '<?= csrf_hash() ?>';
+    var base_url = '<?= base_url(); ?>';
+    let csrfName = '<?= csrf_token() ?>';
+    let csrfHash = '<?= csrf_hash() ?>';
     </script>
     <script src="<?= base_url('/js/admin.js') ?>"></script>
     <script src="<?= base_url('/js/toastr.min.js') ?>"></script>
@@ -65,27 +64,25 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/3.1/daterangepicker.min.js"></script>
 
     <!-- SELECT 2 -->
-    <link href="<?= base_url('/css/select2.min.css'); ?>" rel="stylesheet">
-    </link>
-    <link href="<?= base_url('/css/select2-bootstrap-5-theme.min.css'); ?>" rel="stylesheet">
-    </link>
+    <link href="<?=base_url('/css/select2.min.css'); ?>" rel="stylesheet"></link>
+    <link href="<?=base_url('/css/select2-bootstrap-5-theme.min.css'); ?>" rel="stylesheet"></link>
     <script src="<?= base_url('/js/select2.min.js') ?>"></script>
+
+
 
 </head>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         // Corrige le thème après le chargement complet de CoreUI
         document.documentElement.setAttribute("data-coreui-theme", "light");
     });
 </script>
 
 <body>
-    <?php if (isset($menus)) {
-        echo view($template_path . 'sidebar', ['menus' => $menus]);
-    }  ?>
-    <div class="wrapper d-flex flex-column min-vh-100">
-        <?php if (isset($breadcrumb)) {
-            echo view($template_path . '/breadcrumb');
-        } ?>
-        <div class="body flex-grow-1">
-            <div class="container-fluid px-4">
+<?php if (isset($menus)) {
+    echo view($template_path . 'sidebar',['menus' => $menus]);  }  ?>
+<div class="wrapper d-flex flex-column min-vh-100">
+    <?php if (isset($breadcrumb)) { echo view($template_path . '/breadcrumb');  } ?>
+    <div class="body flex-grow-1">
+        <div class="container-fluid px-4">
+

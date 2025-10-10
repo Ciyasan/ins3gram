@@ -3,12 +3,12 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h3>Liste des recettes</h3>
-                <a href="<?= base_url("admin/recipe/new") ?>" class="btn btn-sm btn-primary">
-                    <i class="fas fa-plus"></i> Nouvelle Recette
+                <a href="<?= base_url("admin/ingredient/new") ?>" class="btn btn-sm btn-primary">
+                    <i class="fas fa-plus"></i> Nouveau ingrédient
                 </a>
             </div>
             <div class="card-body">
-                <table class="table table-sm table-bordered table-striped" id="tableRecipe">
+                <table class="table table-sm table-bordered table-striped" id="tableIngredient">
                     <thead>
                     <tr>
                         <th>ID</th>
@@ -29,14 +29,14 @@
 <script>
     $(document).ready(function() {
         var baseUrl = "<?= base_url(); ?>";
-        var table = $('#tableRecipe').DataTable({
+        var table = $('#tableIngredient').DataTable({
             processing: true,
             serverSide: true,
             ajax: {
                 url: '<?= base_url('datatable/searchdatatable') ?>',
                 type: 'POST',
                 data: {
-                    model: 'RecipeModel'
+                    model: 'IngredientModel'
                 }
             },
             columns: [
@@ -45,7 +45,7 @@
                     data: 'name',
                     render : function(data, type, row) {
                         return `<a class="link-underline link-underline-opacity-0"
-                                    href="<?= base_url('admin/recipe/') ?>${row.id}">
+                                    href="<?= base_url('admin/ingredient/') ?>${row.id}">
                                     ${data}
                                 </a>`;
                     }
@@ -67,7 +67,7 @@
                                 <input class="form-check-input" type="checkbox"
                                     id="switch-${row.id}"
                                     ${isActive ? 'checked' : ''}
-                                    onchange="toggleRecipeStatus(${row.id}, this.checked ? 'activate' : 'deactivate')">
+                                    onchange="toggleIngredientStatus(${row.id}, this.checked ? 'activate' : 'deactivate')">
                                 <label class="form-check-label" for="switch-${row.id}">
                                     ${isActive ? 'Active' : 'Inactive'}
                                 </label>
@@ -81,7 +81,7 @@
                     render: function(data, type, row) {
                         return `
                             <div class="btn-group" role="group">
-                                <a href="<?= base_url('/admin/recipe/') ?>${row.id}"
+                                <a href="<?= base_url('/admin/ingredient/') ?>${row.id}"
                                    class="btn btn-sm btn-warning" title="Modifier">
                                     <i class="fas fa-edit"></i>
                                 </a>
@@ -107,7 +107,7 @@
         };
     });
 
-    function toggleRecipeStatus(id, action) {
+    function toggleIngredientStatus(id, action) {
         const actionText = action === 'activate' ? 'activer' : 'désactiver';
         const actionColor = action === 'activate' ? '#28a745' : '#dc3545';
 
@@ -123,9 +123,9 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: "<?= base_url('/admin/recipe/switch-active'); ?>",
+                    url: "<?= base_url('/admin/ingredient/switch-active'); ?>",
                     type: "POST",
-                    data: { 'id_recipe': id },
+                    data: { 'id_ingredient': id },
                     success: function (response) {
                         if (response.success) {
                             Swal.fire({

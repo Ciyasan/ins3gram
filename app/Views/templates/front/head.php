@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="fr-FR">
-
 <head>
     <base href="<?= base_url('./') ?>">
     <meta charset="utf-8">
@@ -12,10 +11,10 @@
     <title><?= $title ?></title>
     <link rel="icon" type="image/png" href="<?= base_url('/assets/favicon/favicon-96x96.png') ?>" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="<?= base_url('/assets/favicon/favicon.svg') ?>" />
-    <link rel="shortcut icon" href="<?= base_url('/assets/favicon/favicon.ico') ?>" />
-    <link rel="apple-touch-icon" sizes="180x180" href="<?= base_url('/assets/favicon/apple-touch-icon.png') ?>" />
+    <link rel="shortcut icon" href="<?= base_url('/assets/favicon/favicon.ico') ?>"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="<?= base_url('/assets/favicon/apple-touch-icon.png') ?>"/>
     <meta name="apple-mobile-web-app-title" content="Ins3gram" />
-    <link rel="manifest" href="<?= base_url('/assets/favicon/site.webmanifest') ?>" />
+    <link rel="manifest" href="<?= base_url('/assets/favicon/site.webmanifest') ?>"/>
     <meta name="theme-color" content="#ffffff">
 
     <!-- Javascript -->
@@ -33,8 +32,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js" integrity="sha512-GWzVrcGlo0TxTRvz9ttioyYJ+Wwk9Ck0G81D+eO63BaqHaJ3YZX9wuqjwgfcV/MrB2PhaVX9DkYVhbFpStnqpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- BOOTSTRAP BUNDLE -->
-    <link rel="stylesheet" href="<?= base_url('/css/bootstrap.min.css') ?>">
-    </link>
+    <link rel="stylesheet" href="<?= base_url('/css/bootstrap.min.css') ?>"></link>
     <script src="<?= base_url('/js/bootstrap.bundle.min.js') ?>"></script>
     <script src="<?= base_url('/js/bootstrap-datepicker.min.js') ?>"></script>
     <script src="<?= base_url('/js/bootstrap-datepicker.fr.js') ?>"></script>
@@ -61,14 +59,13 @@
     <script src="<?= base_url('/js/sweetalert2.all.min.js') ?>"></script>
 
     <!-- SELECT 2 -->
-    <link href="<?= base_url('/css/select2.min.css'); ?>" rel="stylesheet">
-    <link href="<?= base_url('/css/select2-bootstrap-5-theme.min.css'); ?>" rel="stylesheet">
+    <link href="<?=base_url('/css/select2.min.css'); ?>" rel="stylesheet">
+    <link href="<?=base_url('/css/select2-bootstrap-5-theme.min.css'); ?>" rel="stylesheet">
     <script src="<?= base_url('/js/select2.min.js') ?>"></script>
 </head>
-
 <body>
 
-    <?php if (isset($menus)) {
-        echo view($template_path . 'header', ['menus' => $menus]);
-    }  ?>
-    <div class="container">
+<?php if (isset($menus)) {
+    echo view($template_path . 'header',['menus' => $menus]);  }  ?>
+<div class="container">
+

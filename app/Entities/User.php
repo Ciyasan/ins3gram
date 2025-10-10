@@ -36,7 +36,7 @@ class User extends Entity
     protected $hidden = ['password'];
     protected $dates   = ['created_at', 'updated_at', 'deleted_at'];
 
-    public function getFullName(): string
+    public function getFullName():string
     {
         return trim($this->attributes['first_name'] . ' ' . $this->attributes['last_name']);
     }
@@ -87,4 +87,6 @@ class User extends Entity
 
         return $permission ? $permission['name'] : 'Utilisateur';
     }
+
+
 }

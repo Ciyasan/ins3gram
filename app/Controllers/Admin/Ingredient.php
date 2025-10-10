@@ -7,6 +7,28 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 class Ingredient extends BaseController
 {
+    public function index(){
+        return $this->view('/admin/ingredient/index');
+    }
+    public function create(){
+        helper(['form']);
+        return $this->view('/admin/ingredient/form');
+    }
+
+    public function insert() {
+        $image = $this->request->getFiles();
+        $data = $this->request->getPost();
+        echo "<pre>";
+        $id_ingredient = Model('IngredientModel')->insert($data);
+        foreach($image['image'] as $img) {
+            print_r(upload_file($img,'ingredient',$data['name'],['entity_type' => 'ingredient',"entity_id" => $id_ingredient], true));
+        }
+        die();
+
+
+
+        die();
+    }
     public function search()
     {
         $request = $this->request;

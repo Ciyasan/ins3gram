@@ -179,6 +179,7 @@ if (!function_exists('getUploadErrorMessage')) {
                 return 'Une erreur inconnue est survenue lors de l\'upload.';
         }
     }
+
 }
 
 if (!function_exists('build_filter_url')) {
@@ -212,7 +213,7 @@ if (!function_exists('build_filter_url')) {
 
         // Exclusion de paramètres spécifiques si demandé
         foreach ($exclude_params as $key => $param) {
-            if (is_array($param)) {
+            if( is_array($param)){
                 foreach ($param as $value) {
                     unset($final_params[$key][$value]);
                 }
@@ -221,8 +222,9 @@ if (!function_exists('build_filter_url')) {
             }
         }
 
+
         // Nettoyage : suppression des valeurs vides/nulles
-        $final_params = array_filter($final_params, function ($value) {
+        $final_params = array_filter($final_params, function($value) {
             return $value !== null && $value !== '' && $value !== [];
         });
 
