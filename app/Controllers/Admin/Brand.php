@@ -7,7 +7,7 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 class Brand extends BaseController
 {
-    protected $breadcrumb = [['text'=>'Tableau de Bord', 'url' => "/admin/dashboard"],['text'=>"Marques", 'url' => '']];
+    protected $breadcrumb = [['text' => 'Tableau de Bord', 'url' => "/admin/dashboard"], ['text' => "Marques", 'url' => '']];
 
     public function index()
     {
@@ -22,14 +22,14 @@ class Brand extends BaseController
         $image = $this->request->getFile('image');
         if ($id_brand = $bm->insert($data)) {
             $this->success('Marque bien créée');
-            if($image && $image->getError() !== UPLOAD_ERR_NO_FILE){
+            if ($image && $image->getError() !== UPLOAD_ERR_NO_FILE) {
                 $mediaData = [
                     'entity_type' => 'brand',
                     'entity_id' => $id_brand,
                     'created_at' => date('Y-m-d H:i:s')
                 ];
                 // Utiliser la fonction upload_file() de l'utils_helper pour gérer l'upload et les données du média
-                $uploadResult = upload_file($image, 'brand', $image->getName(), $mediaData,false);
+                $uploadResult = upload_file($image, 'brand', $image->getName(), $mediaData, false);
                 // Vérifier le résultat de l'upload
                 if (is_array($uploadResult) && $uploadResult['status'] === 'error') {
                     // Afficher un message d'erreur détaillé
@@ -44,12 +44,30 @@ class Brand extends BaseController
         return $this->redirect('admin/brand');
     }
 
-    public function update() {
+    public function update()
+    {
         $bm = model('BrandModel');
         $data = $this->request->getPost();
         $id = $data['id'];
         unset($data['id']);
+        $image = $this->request->getFile('image');
         if ($bm->update($id, $data)) {
+            if ($image && $image->getError() !== UPLOAD_ERR_NO_FILE) {
+                $mediaData = [
+                    'entity_type' => 'brand',
+                    'entity_id' => $id,
+                    'created_at' => date('Y-m-d H:i:s')
+                ];
+                // Utiliser la fonction upload_file() de l'utils_helper pour gérer l'upload et les données du média
+                $uploadResult = upload_file($image, 'brand', $image->getName(), $mediaData, false);
+                // Vérifier le résultat de l'upload
+                if (is_array($uploadResult) && isset($uploadResult['status']) && $uploadResult['status'] === 'error') {
+                    return $this->response->setJSON([
+                        'success' => false,
+                        'message' => "Une erreur est survenue lors de l'upload de l'image : " . $uploadResult['message'],
+                    ]);
+                }
+            }
             return $this->response->setJSON([
                 'success' => true,
                 'message' => "La marque à été modifiée avec succés !",
@@ -62,7 +80,8 @@ class Brand extends BaseController
         }
     }
 
-    public function delete() {
+    public function delete()
+    {
         $bm = model('BrandModel');
         $id = $this->request->getPost('id');
         if ($bm->delete($id)) {
