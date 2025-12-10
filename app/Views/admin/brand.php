@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-3">
         <div class="card">
-            <?= form_open_multipart('admin/brand/insert') ?>
+        <?= form_open_multipart('admin/brand/insert') ?>
             <div class="card-header h4">
                 Créer une marque
             </div>
@@ -53,10 +53,6 @@
                     <input type="text" class="form-control" id="modalNameInput" placeholder="Nom de la marque" data-id="">
                     <label for="modalNameInput">Nom de la marque</label>
                 </div>
-                <div class="form-floating mt-3">
-                    <input type="file" class="form-control" id="modalImageInput" accept="image/*">
-                    <label for="modalImageInput">Logo de la marque</label>
-                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
@@ -78,14 +74,13 @@
                     model: 'BrandModel'
                 }
             },
-            columns: [{
-                    data: 'id'
-                },
+            columns: [
+                { data: 'id' },
                 {
                     data: null,
                     orderable: false,
                     render: function(data, type, row) {
-                        if (row.image_url) {
+                        if(row.image_url) {
                             return `<img style="height:30px;" src='${baseUrl}/${row.image_url}'>
                         `;
                         } else {
@@ -94,14 +89,12 @@
                         }
                     }
                 },
-                {
-                    data: 'name'
-                },
+                { data: 'name' },
                 {
                     data: null,
                     orderable: false,
                     render: function(data, type, row) {
-                        return `
+                       return `
                             <div class="btn-group" role="group">
                                 <button onclick="showModal(${row.id},'${row.name}')"  class="btn btn-sm btn-warning" title="Modifier">
                                     <i class="fas fa-edit"></i>
@@ -114,9 +107,7 @@
                     }
                 }
             ],
-            order: [
-                [0, 'desc']
-            ],
+            order: [[0, 'desc']],
             pageLength: 10,
             language: {
                 url: baseUrl + 'js/datatable/datatable-2.1.4-fr-FR.json',
@@ -140,21 +131,13 @@
     function saveBrand() {
         let name = $('#modalNameInput').val();
         let id = $('#modalNameInput').data('id');
-        let file = $('#modalImageInput')[0]?.files[0];
-
-        //Utilisation de FormData au lieu d'un objet simple
-        let formData = new FormData();
-        formData.append('id', id);
-        formData.append('name', name);
-        if (file) formData.append('image', file); //ajoute l'image seulement si présente
-
         $.ajax({
             url: '<?= base_url('/admin/brand/update') ?>',
             type: 'POST',
-            data: formData,
-            processData: false, //obligatoire pour FormData
-            contentType: false, //obligatoire pour FormData
-            dataType: 'json',
+            data: {
+                name: name,
+                id: id,
+            },
             success: function(response) {
                 myModal.hide();
                 if (response.success) {
@@ -175,18 +158,11 @@
                         icon: 'error'
                     });
                 }
-            },
-            error: function() {
-                Swal.fire({
-                    title: 'Erreur !',
-                    text: 'Erreur de communication avec le serveur',
-                    icon: 'error'
-                });
             }
-        });
+        })
     }
 
-    function deleteBrand(id) {
+    function deleteBrand(id){
         Swal.fire({
             title: `Êtes-vous sûr ?`,
             text: `Voulez-vous vraiment supprimer cette marque ?`,

@@ -13,7 +13,7 @@
                     <?php
                     $entity_types = ['user' => "Utilisateurs", 'recipe' => "Recettes", 'ingredient' => 'Ingrédients', 'brand' => "Marques"];
                     ?>
-                    <label for="entity-filter form-label me-3">Filtrer par</label>
+                    <label for="entity-filter" class="form-label me-3">Filtrer par</label>
                     <select class="form-select" id="entity-filter" name="entity-filter" onchange="applyFilter(this.value)">
                         <option value="all" selected>Aucun filtre</option>
                         <?php foreach($entity_types as $entity_type => $entity_name) : ?>
