@@ -149,7 +149,7 @@
                             <?= (isset($recipe['alcool']) && $recipe['alcool'] == '1' ) ? "Alcool" : "Sans Alcool";  ?>
                         </div>
                         <a href="<?= base_url('recette/'.$recipe['slug']); ?>">
-                            <img class="card-img-top img-fluid" src="<?= base_url($recipe['mea']);?>">
+                            <img class="card-img-top img-fluid" src="<?= !empty($recipe['mea']) ? base_url($recipe['mea']) : base_url('assets/img/no-img.png');?>">
                         </a>
                     </div>
                     <div class="card-body">

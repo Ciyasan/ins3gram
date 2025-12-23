@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Filters;
 
 use CodeIgniter\HTTP\RequestInterface;
@@ -31,6 +32,7 @@ class AuthFilter implements FilterInterface
         if (!$user->isActive()) {
             log_message('warning', "Inactive user {$user->id} tried to access: " . uri_string());
             $session->setFlashdata('error', 'Votre compte a été désactivé.');
+            return redirect()->to('/sign-in');
         }
 
         // Vérifier la validité de la session (optionnel - sécurité renforcée)
