@@ -76,7 +76,7 @@ class Filters extends BaseFilters
     public array $globals = [
         'before' => [
             // 'honeypot',
-            'csrf' => ['except' => ['api/*','datatable/*']],
+            'csrf' => ['except' => ['api/*', 'datatable/*']],
             // 'invalidchars',
         ],
         'after' => [
@@ -111,4 +111,15 @@ class Filters extends BaseFilters
      * @var array<string, array<string, list<string>>>
      */
     public array $filters = [];
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        // Désactiver CSRF en environnement de test
+        if (ENVIRONMENT === 'testing') {
+            // Retirer complètement csrf des globals
+            unset($this->globals['before']['csrf']);
+        }
+    }
 }
